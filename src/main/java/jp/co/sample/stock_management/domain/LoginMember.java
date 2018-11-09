@@ -23,6 +23,7 @@ public class LoginMember  extends User{
 	 * @param Member　メンバー情報
 	 * @param authorityList 権限情報が入ったリスト
 	 */
+	//ユーザーに権限を持たせることができる。
 	public LoginMember(Member member, Collection<GrantedAuthority> authorityList) {
 		super(member.getMailAddress(), member.getPassword(), authorityList);
 		this.member = member;

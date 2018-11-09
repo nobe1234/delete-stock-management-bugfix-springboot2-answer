@@ -53,18 +53,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.authorizeRequests() // 認可に関する設定
+		//cssなどからくる認証を許可する
 			.antMatchers("/","/member/form","/member/create").permitAll() //「/」などのパスは全てのユーザに許可
 			//.antMatchers("/admin/**").hasRole("ADMIN") // /admin/から始まるパスはADMIN権限でログインしている場合のみアクセス可(権限設定時の「ROLE_」を除いた文字列を指定)
 			//.antMatchers("/member/**").hasRole("MEMBER") // /member/から始まるパスはMEMBER権限でログインしている場合のみアクセス可(権限設定時の「ROLE_」を除いた文字列を指定)
 			.anyRequest().authenticated(); // それ以外のパスは認証が必要
 
+		//ログイん作業を自動で行ってくれる設定
 		http.formLogin() // ログインに関する設定
 			.loginPage("/") // ログイン画面に遷移させるパス(ログイン認証が必要なパスを指定してかつログインされていないとこのパスに遷移される)
 			.loginProcessingUrl("/login") // ログインボタンを押した際に遷移させるパス(ここに遷移させれば自動的にログインが行われる)
 			.failureUrl("/?error=true") //ログイン失敗に遷移させるパス
+			//trueにした場合は必ずログイン後に同じ箇所に遷移する。falseの例がショッピングサイト。カート→
 			.defaultSuccessUrl("/book/list", false) // 第1引数:デフォルトでログイン成功時に遷移させるパス
 			                                        // 第2引数: true :認証後常に第1引数のパスに遷移 
 			                                        //         false:認証されてなくて一度ログイン画面に飛ばされてもログインしたら指定したURLに遷移
+			//自分が設定したリクエストパラメーた名を教えてあげる。
 			.usernameParameter("mailAddress") // 認証時に使用するユーザ名のリクエストパラメータ名(今回はメールアドレスを使用)
 			.passwordParameter("password"); // 認証時に使用するパスワードのリクエストパラメータ名
 		
@@ -86,6 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * 
 	 * @see org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter#configure(org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder)
 	 */
+	//暗号化するときのエンコーダ名とマッチするときのエンコーダ名を合わせないとログアウト認証できない。
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(memberDetailsService)
@@ -102,6 +107,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * </pre>
      * @return bcryptアルゴリズムで暗号化する実装オブジェクト
      */
+	//暗号化するときのエンコーダー
     @Bean //設定
     public PasswordEncoder passwordEncoder() {
     		return new BCryptPasswordEncoder();
