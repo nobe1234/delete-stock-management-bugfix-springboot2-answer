@@ -102,7 +102,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * </pre>
      * @return bcryptアルゴリズムで暗号化する実装オブジェクト
      */
-    @Bean
+    @Bean //設定
     public PasswordEncoder passwordEncoder() {
     		return new BCryptPasswordEncoder();
     }

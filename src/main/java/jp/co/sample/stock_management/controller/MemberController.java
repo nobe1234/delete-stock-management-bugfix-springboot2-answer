@@ -72,6 +72,7 @@ public class MemberController {
 		}
 
 		// パスワードを暗号化し、formに設定
+		
 		form.setPassword(memberService.encodePassword(form.getPassword()));
 		
 		// フォームの内容をエンティティに格納

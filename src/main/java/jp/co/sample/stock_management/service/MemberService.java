@@ -18,6 +18,9 @@ public class MemberService {
 
 	@Autowired
 	private MemberRepository memberRepository;
+	//パスワードの変更を行うクラス.
+	//PasswordEncoderを実装するクラスはたくさんあるので、自分で使いたいものを設定しなければならない。
+	//SecurityConfig.javaにセキュリティ関係の設定をすべてまとめてある・
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -75,6 +78,7 @@ public class MemberService {
 	 * @return 暗号化後のパスワード
 	 */
 	public String encodePassword(String rowPassword) {
+		//暗号化
 		String encodedPassword = passwordEncoder.encode(rowPassword);
 		return encodedPassword;
 	}
