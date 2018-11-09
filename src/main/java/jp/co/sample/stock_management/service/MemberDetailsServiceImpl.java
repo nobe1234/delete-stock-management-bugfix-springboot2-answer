@@ -41,6 +41,7 @@ public class MemberDetailsServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException("そのEmailは登録されていません。");
 		}
 		// 権限付与の例
+		//ROLE_MEMBER一般ユーザー　ROLE_から始める。
 		Collection<GrantedAuthority> authorityList = new ArrayList<>();
 		authorityList.add(new SimpleGrantedAuthority("ROLE_MEMBER")); // ユーザ権限付与
 //		if(member.isAdmin()) {
