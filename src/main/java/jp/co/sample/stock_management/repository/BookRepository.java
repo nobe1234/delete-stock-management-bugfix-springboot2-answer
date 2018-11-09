@@ -89,6 +89,8 @@ public class BookRepository {
 	 * 
 	 * @return テーブル内で一番値が大きいID.データがない場合はnull
 	 */
+	//synchronized =重要　同期処理　１つの処理が行われている間は、同時あくせすぶんは待ちになる。（同じMAXIDを取得できない。）
+	//コントローラーに書いた方が安全
 	synchronized public Integer getMaxId() {
 		try {
 			Integer maxId = jdbcTemplate.queryForObject("SELECT MAX(id) FROM books;", new MapSqlParameterSource(),

@@ -155,8 +155,10 @@ public class BookController {
 		String filename = imageFile.getOriginalFilename();
 		// 画像を保存する
 		try {
+			//applicationはスコープのものと一緒　どの環境でも画像が取れるパスが作れるように　imgまでの絶対パスをとってきてくれる
 			String destPath = application.getRealPath("/img/" + filename);
 			File destFile = new File(destPath);
+			//画像とパスを含んだファイルを送る
 			imageFile.transferTo(destFile);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
