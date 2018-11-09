@@ -73,13 +73,12 @@ public class MemberService {
 	/**
 	 * 暗号化する.
 	 * 
-	 * @param rowPassword
+	 * @param rawPassword
 	 *            暗号化前のパスワード(元のパスワード)
 	 * @return 暗号化後のパスワード
 	 */
-	public String encodePassword(String rowPassword) {
-		//暗号化
-		String encodedPassword = passwordEncoder.encode(rowPassword);
+	public String encodePassword(String rawPassword) {
+		String encodedPassword = passwordEncoder.encode(rawPassword);
 		return encodedPassword;
 	}
 
